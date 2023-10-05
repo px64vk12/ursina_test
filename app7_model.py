@@ -21,12 +21,13 @@ class Cube(Entity):
             double_sided = True)
         
         
+        
 class Girl(Entity):
     def __init__(self, scale=(1,1,1), position=(0,0,0), rotation=(0,0,0)):
         super().__init__(
             parent = scene,
-            scale=(0.002,0.002,0.002),
-            position=(-3, 0.01, 0),
+            scale=(0.165,0.165,0.165),
+            position=(-3, 0.1, 0),
             rotation=(0, 0, 0),
             model = "Girl/girl.fbx",
             collider='box',
@@ -37,6 +38,7 @@ class Girl(Entity):
         self.face = loader.loadTexture("Girl/face.png")
         self.hair1 = loader.loadTexture("Girl/hair.back.png")
         self.hair2 = loader.loadTexture("Girl/hair.front.png")
+        print(self.ls())
         self.find('**/obj1').setTexture(self.body)
         self.find('**/obj1.001').setTexture(self.face, 1)
         self.find('**/obj1.002').setTexture(self.cloth, 1)

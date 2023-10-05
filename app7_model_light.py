@@ -15,13 +15,14 @@ class Girl(Entity):
     def __init__(self, scale=(1,1,1), position=(0,0,0), rotation=(0,0,0)):
         super().__init__(
             parent = scene,
-            scale=(0.002,0.002,0.002),
+            scale=(0.2,0.2,0.2),
             position=position,
             rotation=(0, 0, 0),
             model = "Girl/girl.fbx",
             collider='box',
             double_sided = True,
             shader=lit_with_shadows_shader)
+        print(self.ls())
 
         self.body = loader.loadTexture("Girl/body.png")
         self.cloth = loader.loadTexture("Girl/clothes.png")

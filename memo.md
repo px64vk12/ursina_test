@@ -4,19 +4,21 @@ ursina
 
 
 
-model 
+model clear
     position
     ratation
     scale
 
 
+clear
 controllor, update
 
 
+clear
 texture
     nodePath.setTexPos(TextureStage, uOffset, vOffset, wOffset)
 
-
+clear
 lighting
     디렉셔널 : 모든 빛이 같다. 멀리서 같은 방향으로 오는 빛 구현
     스카이 : 천장을 광원으로 만든다.
@@ -33,6 +35,9 @@ particle effect
 
 
 엑터 : 
+    1. 캐릭터 조인트 본
+    2. 레그돌 적용
+    3. 바스트 모핑
 
 
 렌더링 파이프라인 : 머티리얼, 리플렉션 구현
