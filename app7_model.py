@@ -1,8 +1,11 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
-
+import panda3d
 app = Ursina(borderless=False)
 window.size = (800, 600)
+
+
+
 
 # model
 class Cube(Entity):
@@ -16,21 +19,31 @@ class Cube(Entity):
             rotation=rotation,
             collider='box',
             double_sided = True)
-
-
-class Grass(Entity):
-    def __init__(self, scale=(1, 1, 1), position=(0, 0, 0), rotation=(0, 0, 0)):
+        
+class Girl(Entity):
+    def __init__(self, scale=(1,1,1), position=(0,0,0), rotation=(0,0,0)):
         super().__init__(
-            parent=scene,
-            model="grass",
-            texture='grass',
-            scale=scale,
-            position=position,
-            rotation=rotation,
+            parent = scene,
+            scale=(0.002,0.002,0.002),
+            position=(-3, 0.01, 0),
+            rotation=(0, 0, 0),
+            model = "Girl/girl.fbx",
             collider='box',
-            double_sided=True)
-        
-        
+            double_sided = True)
+
+        self.body = loader.loadTexture("Girl/body.png")
+        self.cloth = loader.loadTexture("Girl/clothes.png")
+        self.face = loader.loadTexture("Girl/face.png")
+        self.hair1 = loader.loadTexture("Girl/hair.back.png")
+        self.hair2 = loader.loadTexture("Girl/hair.front.png")
+        self.find('**/obj1').setTexture(self.body)
+        self.find('**/obj1.001').setTexture(self.face, 1)
+        self.find('**/obj1.002').setTexture(self.cloth, 1)
+        self.find('**/obj1.003').setTexture(self.hair1, 1)
+        self.find('**/obj1.004').setTexture(self.hair2, 1)
+     
+girl = Girl()
+   
 floor = []
 for i in range(20):
     for j in range(20):
@@ -39,13 +52,13 @@ for i in range(20):
             position = (-10+i, 0, -10+j),
         ))
 
-grass = Grass(position = (0,2,0))
-        
-        
+
+
 # control
 player = FirstPersonController(
     position=(0, 1, 0), 
-    rotation=(0, 0, 0), enabled=True)
+    rotation=(0, 0, 0), 
+enabled=True)
 def control(): pass
 
 
