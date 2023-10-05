@@ -1,36 +1,27 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 import panda3d
+from ursina.shaders import lit_with_shadows_shader # you have to apply this shader to enties for them to receive shadows.
 app = Ursina(borderless=False)
 window.size = (800, 600)
 
+import numpy as np 
 
 
 
 # model
-class Cube(Entity):
-    def __init__(self, scale=(1,1,1), position=(0,0,0), rotation=(0,0,0)):
-        super().__init__(
-            parent = scene,
-            model = "cube",
-            texture='white_cube',
-            scale=scale,
-            position=position,
-            rotation=rotation,
-            collider='box',
-            double_sided = True)
-        
         
 class Girl(Entity):
     def __init__(self, scale=(1,1,1), position=(0,0,0), rotation=(0,0,0)):
         super().__init__(
             parent = scene,
             scale=(0.002,0.002,0.002),
-            position=(-3, 0.01, 0),
+            position=position,
             rotation=(0, 0, 0),
             model = "Girl/girl.fbx",
             collider='box',
-            double_sided = True)
+            double_sided = True,
+            shader=lit_with_shadows_shader)
 
         self.body = loader.loadTexture("Girl/body.png")
         self.cloth = loader.loadTexture("Girl/clothes.png")
@@ -42,37 +33,31 @@ class Girl(Entity):
         self.find('**/obj1.002').setTexture(self.cloth, 1)
         self.find('**/obj1.003').setTexture(self.hair1, 1)
         self.find('**/obj1.004').setTexture(self.hair2, 1)
-girl = Girl()
+girlPos = np.array([-3,0.01, 0])
+girl = Girl(position = girlPos)
    
-pl = PointLight(parent=Entity(), y=2, z=2, shadows=True)
-al = AmbientLight(parent=Entity(), y=1, z=2, shadows=True) 
+Entity(model='plane', scale=10, color=color.black, shader=lit_with_shadows_shader)
+Entity(model='cube', color=color.gray, y=1, shader=lit_with_shadows_shader)
    
-   
-   
-floor = []
-for i in range(20):
-    for j in range(20):
-        floor.append(Cube(
-            scale = (1,1,1),
-            position = (-10+i, 0, -10+j),
-        ))
+al = AmbientLight(parent=Entity(), position=(0,1,2), shadows=True)  
+sl = SpotLight(parent=Entity(), position=(0,1,2),  color = (1,1,1,0.1), shadows=True)
 
 
 
 # control
-player = FirstPersonController(
-    position=(0, 1, 0), 
-    rotation=(0, 0, 0), 
-enabled=True)
-def control(): pass
+EditorCamera() # rotote key = right
+def control(): 
+    if held_keys['a']: girlPos[0] += 0.1
+    if held_keys['d']: girlPos[0] -= 0.1
+    if held_keys['w']: girlPos[2] += 0.1
+    if held_keys['s']: girlPos[2] -= 0.1
+    girl.position = girlPos
 
 
 
 
 # update
 def update():  # timer update
-    if player.y < -20: 
-        player.set_position((0,0,0))
     control()
 
 

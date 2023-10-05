@@ -13,8 +13,8 @@ Entity(model='cube', color=color.gray, y=1, shader=lit_with_shadows_shader)
 
 #DirectionalLight(parent=Entity(), y=2, z=2, shadows=True)
 pl = PointLight(parent=Entity(), y=2, z=2, shadows=True)
-#al = AmbientLight(parent=Entity(), y=1, z=2, shadows=True)  # spotlight와 같이 쓰면 좋다.
-#sl = SpotLight(parent=Entity(), position=(0,1,2),  color = (1,1,1,0.1), shadows=True)
+al = AmbientLight(parent=Entity(), y=1, z=2, shadows=True)  
+sl = SpotLight(parent=Entity(), position=(0,1,2),  color = (1,1,1,0.1), shadows=True)
 
 
 # control
