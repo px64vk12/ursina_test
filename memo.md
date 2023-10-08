@@ -37,7 +37,7 @@ particle effect
 엑터 : 
     1. 캐릭터 조인트 본
     2. 레그돌 적용
-    3. 바스트 모핑
+    3. 바스트 모핑 : https://discourse.panda3d.org/t/hair-physics-simulation/28055
 
 
 렌더링 파이프라인 : 머티리얼, 리플렉션 구현
